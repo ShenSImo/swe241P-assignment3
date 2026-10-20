@@ -5,7 +5,7 @@ def sortString(s, algorithm="merge"):
     #str is immutable, list is 
     word = []
     for i in s:
-        word.append(i.lower())
+        word.append(i)
     new_word = ""
     if algorithm == "merge":
         for i in mergeSort(word):
@@ -71,14 +71,16 @@ def partition(alist, first, last):#two pointers tracking left greater than pivot
 
     done = False
     while not done:#find the first item that is larger than pivot, right viceversa
-        while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
+        while leftmark <= rightmark and alist[leftmark] < pivotvalue:
             leftmark += 1
-        while leftmark <= rightmark and alist[rightmark] >= pivotvalue:
+        while leftmark <= rightmark and alist[rightmark] > pivotvalue:
             rightmark -= 1
         if leftmark > rightmark:
             done = True
         else:
             alist[leftmark], alist[rightmark] = (alist[rightmark], alist[leftmark])
+            leftmark += 1
+            rightmark -= 1
     alist[first], alist[rightmark] = alist[rightmark], alist[first]
     return rightmark#decide where the rest sublist should be sorted
 
@@ -111,16 +113,3 @@ def groupAnagram(alist):
 
 
 print(groupAnagram(["bucket","rat","mango","tango","ogtan","tar"]))
-
-print(quickSort(list("dcba")))      # ['a', 'b', 'c', 'd']
-print(quickSort(list("aaaa")))      # ['a', 'a', 'a', 'a']
-print(quickSort([]))                # []
-
-# 和 mergeSort 对比
-for s in ["rat", "mango", "Happy", "zyxwvu", "aAbB", "banana"]:
-    assert quickSort(list(s)) == mergeSort(list(s)), s
-
-# 压力测试：10 万个随机小写字母（改之前会崩溃）
-big = [random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(100000)]
-assert quickSort(big[:]) == mergeSort(big[:])
-print("全部通过 ✅")

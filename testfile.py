@@ -12,3 +12,15 @@ def test_duplicates():
     assert sortString(word, "quick") == answer
 
     print("test_duplicates passed")
+
+def test_normal():
+    assert sortString("dcba", "merge") == "abcd"
+    assert sortString("dcba", "quick") == "abcd"
+
+def test_reverse_order():
+    assert sortString("zyxwv", "merge") == "vwxyz"
+    assert sortString("zyxwv", "quick") == "vwxyz"
+
+def test_empty_string():
+    assert sortString("", "merge") == ""
+    assert sortString("", "quick") == ""
