@@ -1,5 +1,7 @@
 from hw3 import *
-
+import string
+import time
+import random
 # test many duplicate letters
 def test_duplicates():
     word = "a" * 2000
@@ -24,3 +26,17 @@ def test_reverse_order():
 def test_empty_string():
     assert sortString("", "merge") == ""
     assert sortString("", "quick") == ""
+
+def test_compare_speed():
+    word = "zxyabc" * 500
+
+    start = time.perf_counter()
+    sortString(word, "merge")
+    merge_time = time.perf_counter() - start
+
+    start = time.perf_counter()
+    sortString(word, "quick")
+    quick_time = time.perf_counter() - start
+
+    print(f"Merge Sort: {merge_time:.6f}s")
+    print(f"Quick Sort: {quick_time:.6f}s")
